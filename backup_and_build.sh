@@ -9,14 +9,16 @@ function backup_folder {
     local date=$(date '+%Y-%m-%d-%H:%M:%S')
 
     local backup_folder="bak"
+    # local parent_dir=$(dirname "$(pwd)")
 
+    # local backup_dir="$parent_dir/$backup_folder/$date"
     local backup_dir="$backup_folder/$date"
 
     mkdir -p $backup_dir || error "Failed to create the backup directory"
 
     for file in *; do
       if [ "$file" != "$backup_dir" ] && [ "$file" != "backup_and_build.sh" ] && [ "$file" != "Web.config" ]; then
-        mv "$file" "$backup_dir" || error "Failed to move files to the backup folder"
+        mv "$file" "$backup_dir"
       fi
     done
 
@@ -52,6 +54,8 @@ if [ -n "$(git ls-remote --exit-code origin "$branch_name")" ]; then
   else
     # Backup the current folder
     backup_folder
+
+    git stash
 
     # Update the chosen branch
     pull_and_build "$branch_name"
