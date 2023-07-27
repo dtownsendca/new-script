@@ -45,6 +45,11 @@ function pull_and_build {
         fi
       fi
     done
+
+    cd build
+    mv ./* ../ 
+    cd ../
+    rm -r build
 }
 
 # Main script
