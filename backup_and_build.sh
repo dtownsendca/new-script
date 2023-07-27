@@ -35,6 +35,16 @@ function pull_and_build {
     # Assuming you use npm for building the React project
     npm install || error "Failed to install npm packages"
     npm run build || error "Failed to build the application"
+
+    for file in *; do
+      if [ "$file" != "$backup_dir" ] && [ "$file" != "backup_and_build.sh" ] && [ "$file" != "Web.config" ] && [ "$file" != "build" ]; then
+        if [ -d "$file" ]; then
+          rm -r "$file" || error "Failed to delete the directory: $file"
+        else
+          rm "$file" || error "Failed to delete the file: $file"
+        fi
+      fi
+    done
 }
 
 # Main script
@@ -56,6 +66,7 @@ if [ -n "$(git ls-remote --exit-code origin "$branch_name")" ]; then
     backup_folder
 
     git stash
+    git stash clear
 
     # Update the chosen branch
     pull_and_build "$branch_name"
