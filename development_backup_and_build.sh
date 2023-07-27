@@ -17,7 +17,7 @@ function backup_folder {
     mkdir -p $backup_dir || error "Failed to create the backup directory"
 
     for file in *; do
-      if [ "$file" != "$backup_dir" ] && [ "$file" != "backup_and_build.sh" ] && [ "$file" != "Web.config" ]; then
+      if [ "$file" != "$backup_dir" ] && [ "$file" != "development_backup_and_build.sh" ] && [ "$file" != "Web.config" ]; then
         mv "$file" "$backup_dir"
       fi
     done
@@ -37,7 +37,7 @@ function pull_and_build {
     npm run build || error "Failed to build the application"
 
     for file in *; do
-      if [ "$file" != "bak" ] && [ "$file" != "backup_and_build.sh" ] && [ "$file" != "Web.config" ] && [ "$file" != "build" ]; then
+      if [ "$file" != "bak" ] && [ "$file" != "development_backup_and_build.sh" ] && [ "$file" != "Web.config" ] && [ "$file" != "build" ]; then
         if [ -d "$file" ]; then
           rm -r "$file" || error "Failed to delete the directory: $file"
         else
@@ -53,7 +53,9 @@ function pull_and_build {
 # Main script
 
 # Ask the user for the branch they want to update
-read -p "Which branch would you like to pull and build? (development/staging/production): " branch_name
+# read -p "Which branch would you like to pull and build? (development/staging/production): " branch_name
+
+branch_name="development"
 
 git fetch || error "Failed to fetch changes from the remote repository"
 
