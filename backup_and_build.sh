@@ -37,7 +37,7 @@ function pull_and_build {
     npm run build || error "Failed to build the application"
 
     for file in *; do
-      if [ "$file" != "$backup_dir" ] && [ "$file" != "backup_and_build.sh" ] && [ "$file" != "Web.config" ] && [ "$file" != "build" ]; then
+      if [ "$file" != "bak" ] && [ "$file" != "backup_and_build.sh" ] && [ "$file" != "Web.config" ] && [ "$file" != "build" ]; then
         if [ -d "$file" ]; then
           rm -r "$file" || error "Failed to delete the directory: $file"
         else
