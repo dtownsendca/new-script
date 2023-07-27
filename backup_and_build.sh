@@ -46,10 +46,8 @@ function pull_and_build {
       fi
     done
 
-    cd build
-    mv ./* ../ 
-    cd ../
-    rm -r build
+    mv build/* .
+    rmdir build
 }
 
 # Main script
