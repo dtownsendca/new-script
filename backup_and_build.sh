@@ -6,7 +6,7 @@ function error {
 
 # Function to backup the current folder
 function backup_folder {
-    local date=$(date '+%Y-%m-%d-%H:%M:%S')
+    local date=$(date '+%Y_%m_%d-%H_%M_%S')
 
     local backup_folder="bak"
     # local parent_dir=$(dirname "$(pwd)")
